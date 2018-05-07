@@ -1,0 +1,74 @@
+
+<div class="row" style="display: flex; justify-content: center;">
+    <div class="col-lg-8 col-sm-10">
+<h1 class="title">Formulario Persona</h1>
+<form [formGroup]="personForm"  (submit)="savePerson(personForm)" >
+  <div class="form-group">
+    <label for="inputName">Nombre</label>
+    <input type="text" class="form-control" id="inputName" formControlName="name" placeholder="Ej. John">
+    <span *ngIf="!personForm.controls.name.valid && (personForm.controls.name.dirty || personForm.controls.name.touched)" class="text-error"> Nombre es requerido </span>
+  </div>
+  <div class="form-group">
+      <label for="inputLastName">Apellidos</label>
+      <input type="text" class="form-control" id="inputLastName" formControlName="lastName" aria-describedby="lastNameHelp" placeholder="Ej. Salguero">
+      <span *ngIf="!personForm.controls.lastName.valid && (personForm.controls.lastName.dirty || personForm.controls.lastName.touched)" class="text-error"> Apellido es requerido </span>
+  </div>
+  <div class="form-group">
+      <label for="inputBirthday">Fecha de Nacimiento</label>
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" type="text" formControlName="birthday"
+                name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+            <img src="assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
+      <span *ngIf="!personForm.controls.birthday.valid && (personForm.controls.birthday.dirty || personForm.controls.birthday.touched)" class="text-error"> Fecha de Nacimiento es requirido </span>
+  </div>
+  <div class="form-group">
+      <label for="inputAddress">Dirección</label>
+      <input type="text" class="form-control" id="inputAddress" formControlName="address" aria-describedby="addressHelp" placeholder="Ej. Av. Lujan">
+      <span *ngIf="!personForm.controls.address.valid && (personForm.controls.address.dirty || personForm.controls.address.touched)" class="text-error"> Dirección es requerido </span>
+  </div>
+  <div class="form-group">
+    <label for="inputPhone">Telefono</label>
+    <input type="text" class="form-control" id="inputPhone" formControlName="phone" aria-describedby="phoneHelp" placeholder="Ej. 74534494">
+ 
+    <span *ngIf="(!personForm.controls.phone.valid && !personForm.controls.phone.errors.state) && (personForm.controls.phone.dirty || personForm.controls.phone.touched)" class="text-error">
+        {{ personForm.controls.phone.errors.value }}
+    </span>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail">Correo</label>
+    <input type="email" class="form-control" id="inputEmail" formControlName="email" aria-describedby="emailHelp" placeholder="Ej. jhon.salguero@gmail.com">
+    <span *ngIf="(!personForm.controls.email.valid && !personForm.controls.email.errors.state) && (personForm.controls.email.dirty || personForm.controls.email.touched)" class="text-error">
+      {{ personForm.controls.email.errors.value }}
+    </span>
+  </div>
+  <button type="submit" [disabled]="personForm.invalid"  class="btn btn-primary">Guardar</button>
+</form>
+</div>
+</div>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellidos</th>
+        <th scope="col">Fecha de Nacimiento</th>
+        <th scope="col">Direccion</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">Correo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let person of people">
+        <td>{{ person.name }}</td>
+        <td>{{ person.lastName }}</td>
+        <td>{{ person.birthday }}</td>
+        <td>{{ person.phone }}</td>
+        <td>{{ person.email }}</td>
+      </tr>
+    </tbody>
+  </table>
